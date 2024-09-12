@@ -1,0 +1,4 @@
+const { data users, error, isLoading } = useGetUsersQuery(undefined, {
+        skip !token,
+        pollingInterval token  15000  0,
+    });

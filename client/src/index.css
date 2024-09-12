@@ -1,0 +1,107 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom scrollbar styles */
+/* ::-webkit-scrollbar {
+  width: 8px;
+  height: 200px;
+}
+::-webkit-scrollbar-thumb {
+  background-color: #55b3e4;
+  border-radius: 2px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: white;
+  border-radius: 0px;
+} */
+
+/* ::-webkit-scrollbar-button:start:decrement {
+  background-color: #4a5568;
+  height: 20px;
+  width: 100%;
+} */
+
+/* ::-webkit-scrollbar-button:end:increment {
+  background-color: #4a5568;
+  height: 20px;
+  width: 100%; 
+} */
+
+.list-item:nth-child(even) {
+  background-color: #00838f;
+}
+
+.list-item:nth-child(odd) {
+ background-color: #ffd700;
+}
+
+.not-last:not(:last-child) {
+  margin-bottom: 16px;
+}
+
+::selection {
+  background-color: #ffd700;
+  color: #212529;
+}
+
+html {
+  caret-color: #00838f;
+}
+
+body {
+  font-family: "Poppins", serif;
+}
+
+.login-form {
+  animation-name: slideIn;
+  animation-duration: 500ms;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.custom-link {
+  position: relative;
+  text-decoration: none;
+  color: #1aa1dc;
+  transition: color 0.3s ease-in-out;
+}
+
+.custom-link::before,
+.custom-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 100%;
+  bottom: -1px;
+  height: 2px;
+  background-color: rgb(255, 217, 0);
+  transition: right 0.3s ease-in-out;
+}
+
+.custom-link::after {
+  right: 0;
+  left: 100%;
+  transition: left 0.3s ease-in-out;
+}
+
+.custom-link:hover::before {
+  right: 100%;
+}
+
+.custom-link:hover::after {
+  left: 0;
+}
+.custom-link:visited {
+  color: #1aa1dc;
+}
