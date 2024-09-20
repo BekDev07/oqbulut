@@ -26,6 +26,12 @@ const Navigation = () => {
             <Link to={"/restaurants"}>Restoranlar</Link>
           </li>
           <li>
+            <Link to={"/cars"}>cars</Link>
+          </li>
+          <li>
+            <Link to={"/photographers"}>photographers</Link>
+          </li>
+          <li>
             <Link to={"/account"}>Account</Link>
           </li>
           {roles.includes("admin") && (

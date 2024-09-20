@@ -4,9 +4,9 @@ import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setCredentials } from "../features/auth/authSlice";
 import { useLoginMutation } from "../features/auth/authApiSlice";
-
+import { FaRegUserCircle } from "react-icons/fa";
 import usePersist from "../hooks/usePersist";
-
+import editProfileIcon from "../assets/images/noun-edit-profile.svg";
 const Register = () => {
   const containerRef = useRef(null);
   const circleRef = useRef(null);
@@ -14,7 +14,10 @@ const Register = () => {
   const usernameRef = useRef(null);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("");
+  const [image, setImage] = useState(null);
   const [errMsg, setErrMsg] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
   const [persist, setPersist] = usePersist();
 
   const navigate = useNavigate();
@@ -34,7 +37,7 @@ const Register = () => {
   const handlePwdInput = (e) => setPassword(e.target.value);
   const handleToggle = () => setPersist((prev) => !prev);
 
-  async function handleLoginFormSubmit(e) {
+  async function handleRegisterFormSubmit(e) {
     e.preventDefault();
 
     try {
@@ -61,78 +64,111 @@ const Register = () => {
   if (isLoading) return <p>Loading...</p>;
 
   return (
-    <div className="flex h-screen w-screen items-center justify-center overflow-hidden">
-      <div className="flex h-2/3 w-2/3 items-center justify-center overflow-hidden rounded bg-gradient-to-r from-cyan-500 to-customDarkGrayish text-white transition hover:bg-gradient-to-l lg:h-2/3 lg:w-2/5">
-        <form
-          ref={containerRef}
-          className="login-form relative h-5/6 w-11/12 overflow-auto rounded bg-white p-8 pt-4 text-black"
-          onSubmit={handleLoginFormSubmit}
-        >
-          <h1 className="bg-gradient-to-b from-customBlueLight to-customDarkGrayish bg-clip-text text-center text-2xl uppercase text-transparent">
-            Ro'yxatdan o'tish
-          </h1>
-          <p
-            ref={errRef}
-            className={errMsg ? "mb-2 inline-block p-1 text-red-500" : "hidden"}
-            aria-live="assertive"
-            tabIndex="-1"
-          >
-            {errMsg}
+    <div className="flex min-h-screen items-center justify-center bg-gray-100">
+      <div className="w-96 rounded-lg bg-white p-8 shadow-lg">
+        <h2 className="mb-6 text-center text-2xl font-bold">Register</h2>
+
+        {/* {error && (
+          <p className="mb-4 text-red-500">
+            Error: {error?.data?.message || "Registration failed"}
           </p>
-          <label
-            htmlFor="username"
-            className="flex flex-col text-customDarkGrayish"
-          >
-            username
-            <input
-              type="text"
-              ref={usernameRef}
-              className="rounded border border-customBlue p-2 text-customBrown outline-customBlue autofill:bg-yellow-200 focus:text-customDarkGrayish focus:ring-2 focus:ring-customBlueLight"
-              id="username"
-              required
-              value={username}
-              onChange={handleUserInput}
-              autoComplete="off"
-            />
-          </label>
-          <label className="mt-4 flex flex-col">
-            password
-            <input
-              type="password"
-              className="rounded border border-customBlue p-2 text-customBrown outline-customBlue focus:text-customDarkGrayish focus:ring-2 focus:ring-customBlueLight"
-              onChange={handlePwdInput}
-              value={password}
-              required
-              autoComplete="off"
-            />
-          </label>
-          <div className="mt-4 flex flex-col md:flex-row md:justify-between">
-            <label className="flex items-center">
-              <input
-                type="checkbox"
-                className="mr-2 h-6 w-6 outline-customBlue checked:bg-customBlue checked:ring-2 checked:ring-customBlueLight"
-                value={persist}
-                checked={persist}
-                onChange={handleToggle}
-              />
-              parolni saqlash
+        )} */}
+        {/* {isSuccess && (
+          <p className="mb-4 text-green-500">Registration successful!</p>
+        )} */}
+
+        <form onSubmit={handleRegisterFormSubmit} encType="multipart/form-data">
+          {/* Image Upload Field */}
+          <div className="mb-4">
+            <label className="mb-2 block text-sm font-bold" htmlFor="image">
+              Profile Image
             </label>
-            {/* <div className="mt-4 text-customBlue md:mt-0">
-              <Link
-                to={"/reset-password"}
-                className="custom-link text-customBlue outline-customBlue"
-              >
-                parolni unutdim
-              </Link>
-            </div> */}
+            <input
+              type="file"
+              id="image"
+              onChange={(e) => setImage(e.target.files[0])}
+              className="w-full rounded-lg border px-3 py-2 focus:border-blue-300 focus:outline-none focus:ring"
+            />
+            <img
+              src={image || editProfileIcon}
+              className=""
+              alt="profile image"
+            />
           </div>
 
-          <button
-            type="submit"
-            className="mt-4 flex w-full items-center justify-center rounded bg-customBlue p-2 text-white outline-customCyan hover:bg-sky-700"
-          >
-            Kirishni Tasdiqlash
-          </button>
+          {/* Username Field */}
+          <div className="mb-4">
+            <label className="mb-2 block text-sm font-bold" htmlFor="username">
+              Username
+            </label>
+            <input
+              type="text"
+              id="username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              required
+              className="w-full rounded-lg border px-3 py-2 focus:border-blue-300 focus:outline-none focus:ring"
+              ref={usernameRef}
+            />
+          </div>
+
+          {/* Email Field */}
+          <div className="mb-4">
+            <label className="mb-2 block text-sm font-bold" htmlFor="email">
+              Email
+            </label>
+            <input
+              type="email"
+              id="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="w-full rounded-lg border px-3 py-2 focus:border-blue-300 focus:outline-none focus:ring"
+            />
+          </div>
+
+          {/* Password Field */}
+          <div className="mb-4">
+            <label className="mb-2 block text-sm font-bold" htmlFor="password">
+              Password
+            </label>
+            <input
+              type="password"
+              id="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+              className="w-full rounded-lg border px-3 py-2 focus:border-blue-300 focus:outline-none focus:ring"
+            />
+          </div>
+
+          {/* Phone Number Field */}
+          <div className="mb-4">
+            <label
+              className="mb-2 block text-sm font-bold"
+              htmlFor="phoneNumber"
+            >
+              Phone Number
+            </label>
+            <input
+              type="text"
+              id="phoneNumber"
+              value={phoneNumber}
+              onChange={(e) => setPhoneNumber(e.target.value)}
+              required
+              className="w-full rounded-lg border px-3 py-2 focus:border-blue-300 focus:outline-none focus:ring"
+            />
+          </div>
+
+          {/* Submit Button */}
+          <div className="mb-4">
+            <button
+              type="submit"
+              disabled={isLoading}
+              className="w-full rounded-lg bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-600 focus:border-blue-300 focus:outline-none focus:ring"
+            >
+              {isLoading ? "Registering..." : "Register"}
+            </button>
+          </div>
         </form>
       </div>
     </div>
