@@ -25,6 +25,10 @@ const restaurantSchema = new mongoose.Schema({
       required: true,
     },
   },
+  guest_count: {
+    type: Number,
+    required: [true, "iltimos mehmonlar sonini ko'rsating!"],
+  },
   region: {
     type: String,
     required: true,
